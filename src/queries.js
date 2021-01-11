@@ -18,3 +18,14 @@ export const GET_ROCKET = gql`
       costPerLaunch: cost_per_launch
     }
   }`
+
+export const GET_USERS = gql`
+  query getUsers {
+    users(limit: 10, order_by: { timestamp: desc }) {
+      id
+      name
+      twitter
+      rocket
+    }
+  }
+`
