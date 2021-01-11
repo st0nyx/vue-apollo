@@ -5,24 +5,16 @@
       <h3>$ {{rocket.costPerLaunch }}</h3>
   </div>
 </template>
-<script>
-import gql from "graphql-tag"
-const query = gql`
-query getRocket($id: ID!) {
-  rocket(id: $id) {
-    id
-    name
-    description
-    costPerLaunch: cost_per_launch
 
-  }
-}`
+<script>
+import { GET_ROCKET } from '../queries'
+
 export default {
   apollo: {
     rocket: {
-      query,
+      query: GET_ROCKET,
       variables() {
-        return { id: this.$route.params.id}
+        return { id: this.$route.params.id }
       }
     }
   }
