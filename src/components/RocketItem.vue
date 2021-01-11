@@ -1,17 +1,15 @@
 <template>
-  <ul>
-    <li v-for="rocket in rockets" :key="rocket.id">
+  <div v-if="rocket">
       <h2>{{rocket.name}}</h2>
       <h3>{{rocket.description}}</h3>
       <h3>$ {{rocket.costPerLaunch }}</h3>
-    </li>
-  </ul>
+  </div>
 </template>
 <script>
 import gql from "graphql-tag"
 const query = gql`
-query getRockets {
-  rockets {
+query getRocket($id: ID!) {
+  rocket(id: $id) {
     id
     name
     description
@@ -21,8 +19,11 @@ query getRockets {
 }`
 export default {
   apollo: {
-    rockets: {
-      query
+    rocket: {
+      query,
+      variables() {
+        return { id: this.$route.params.id}
+      }
     }
   }
 }
